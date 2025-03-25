@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Driver - Formula 1</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+    <style>
+        body {
+            background: #f8f9fa;
+            font-family: Arial, sans-serif;
+        }
+
+        .container {
+            max-width: 600px;
+            margin-top: 50px;
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-control {
+            border-radius: 8px;
+            padding: 12px;
+        }
+
+        .btn-primary {
+            background-color: #007bff;
+            width: 100%;
+        }
+
+        .header-title {
+            text-align: center;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .back-btn {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2 class="header-title"><i class="fas fa-edit"></i> Edit Driver</h2>
+
+        <!-- Back Button -->
+        <a href="/view-drivers" class="btn btn-secondary back-btn"><i class="fas fa-arrow-left"></i> Back to Drivers</a>
+
+        <!-- Edit Driver Form -->
+        <form action="/update-driver/{{ driver_id }}" method="post">
+            <div class="form-group">
+                <label><i class="fas fa-user"></i> Name</label>
+                <input type="text" name="name" class="form-control" value="{{ driver.name }}" required>
+            </div>
+
+            <div class="form-group">
+                <label><i class="fas fa-birthday-cake"></i> Age</label>
+                <input type="number" name="age" class="form-control" value="{{ driver.age }}" required>
+            </div>
+
+            <div class="form-group">
+                <label><i class="fas fa-flag-checkered"></i> Total Pole Positions</label>
+                <input type="number" name="total_pole_positions" class="form-control" value="{{ driver.total_pole_positions }}" required>
+            </div>
+
+            <div class="form-group">
+                <label><i class="fas fa-trophy"></i> Total Race Wins</label>
+                <input type="number" name="total_race_wins" class="form-control" value="{{ driver.total_race_wins }}" required>
+            </div>
+
+            <div class="form-group">
+                <label><i class="fas fa-coins"></i> Total Points Scored</label>
+                <input type="number" step="0.1" name="total_points_scored" class="form-control" value="{{ driver.total_points_scored }}" required>
+            </div>
+
+            <div class="form-group">
+                <label><i class="fas fa-medal"></i> Total World Titles</label>
+                <input type="number" name="total_world_titles" class="form-control" value="{{ driver.total_world_titles }}" required>
+            </div>
+
+            <div class="form-group">
+                <label><i class="fas fa-stopwatch"></i> Total Fastest Laps</label>
+                <input type="number" name="total_fastest_laps" class="form-control" value="{{ driver.total_fastest_laps }}" required>
+            </div>
+
+            <div class="form-group">
+                <label><i class="fas fa-users"></i> Team</label>
+                <input type="text" name="team" class="form-control" value="{{ driver.team }}" required>
+            </div>
+
+            <!-- Submit Button -->
+            <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> Update Driver</button>
+        </form>
+    </div>
+
+</body>
+</html>
