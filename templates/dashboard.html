@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formula 1 Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script type="module" src="/static/firebase-login.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+    <style>
+        body {
+            background-color: #f8f9fa;
+            color: #212529;
+            text-align: center;
+            font-family: Arial, sans-serif;
+        }
+
+        .navbar {
+            background: white;
+            padding: 15px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .navbar a {
+            color: #212529;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 18px;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin-top: 50px;
+        }
+
+        .sign-out-btn {
+            padding: 10px 20px;
+            font-size: 16px;
+            background: #dc3545;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: 0.3s;
+        }
+
+        .sign-out-btn:hover {
+            background: #a71d2a;
+        }
+
+        .dashboard-card {
+            padding: 20px;
+            border-radius: 10px;
+            transition: 0.3s ease-in-out;
+        }
+
+        .dashboard-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .icon {
+            font-size: 40px;
+            color: #007bff;
+        }
+
+        .btn-primary {
+            background-color: #007bff;
+            border: none;
+            transition: 0.3s;
+        }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation Bar -->
+    <nav class="navbar d-flex justify-content-between px-3">
+        <a href="#">🏎️ Formula 1 Dashboard</a>
+        <button id="sign-out" class="sign-out-btn"><i class="fas fa-sign-out-alt"></i> Sign Out</button>
+    </nav>
+
+    <!-- Welcome Section -->
+    <div class="container">
+        <h2 class="mt-4">🏁 Welcome to the Formula 1 Dashboard!</h2>
+        <p class="text-muted">Manage drivers, teams, and view F1 stats.</p>
+
+        <div class="row mt-4">
+            <!-- Card: Add Driver -->
+            <div class="col-md-4">
+                <div class="card dashboard-card shadow-sm">
+                    <div class="card-body">
+                        <i class="fas fa-user-plus icon"></i>
+                        <h5 class="card-title mt-3">Add a New Driver</h5>
+                        <p class="card-text text-muted">Register a new F1 driver to the database.</p>
+                        <a href="/add-driver" class="btn btn-primary"><i class="fas fa-plus-circle"></i> Add Driver</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card: View Drivers -->
+            <div class="col-md-4">
+                <div class="card dashboard-card shadow-sm">
+                    <div class="card-body">
+                        <i class="fas fa-users icon"></i>
+                        <h5 class="card-title mt-3">View All Drivers</h5>
+                        <p class="card-text text-muted">Browse the list of all registered drivers.</p>
+                        <a href="/view-drivers" class="btn btn-primary"><i class="fas fa-eye"></i> View Drivers</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card: Add Team -->
+            <div class="col-md-4">
+                <div class="card dashboard-card shadow-sm">
+                    <div class="card-body">
+                        <i class="fas fa-flag-checkered icon"></i>
+                        <h5 class="card-title mt-3">Add a New Team</h5>
+                        <p class="card-text text-muted">Register a new F1 team to the database.</p>
+                        <a href="/add-team" class="btn btn-primary"><i class="fas fa-plus-circle"></i> Add Team</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mt-4">
+            <!-- Card: Query Drivers -->
+            <div class="col-md-4">
+                <div class="card dashboard-card shadow-sm">
+                    <div class="card-body">
+                        <i class="fas fa-search icon"></i>
+                        <h5 class="card-title mt-3">Query Drivers</h5>
+                        <p class="card-text text-muted">Find drivers based on attributes.</p>
+                        <a href="/query-drivers" class="btn btn-primary"><i class="fas fa-filter"></i> Query Drivers</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card: Query Teams -->
+            <div class="col-md-4">
+                <div class="card dashboard-card shadow-sm">
+                    <div class="card-body">
+                        <i class="fas fa-search-plus icon"></i>
+                        <h5 class="card-title mt-3">Query Teams</h5>
+                        <p class="card-text text-muted">Find teams based on attributes.</p>
+                        <a href="/query-teams" class="btn btn-primary"><i class="fas fa-filter"></i> Query Teams</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card: View Teams -->
+            <div class="col-md-4">
+                <div class="card dashboard-card shadow-sm">
+                    <div class="card-body">
+                        <i class="fas fa-users-cog icon"></i>
+                        <h5 class="card-title mt-3">View All Teams</h5>
+                        <p class="card-text text-muted">Browse the list of all registered teams.</p>
+                        <a href="/view-teams" class="btn btn-primary"><i class="fas fa-eye"></i> View Teams</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card: Compare Drivers -->
+            <div class="col-md-4">
+                <div class="card dashboard-card shadow-sm">
+                    <div class="card-body">
+                        <i class="fas fa-balance-scale icon"></i>
+                        <h5 class="card-title mt-3">Compare Drivers</h5>
+                        <p class="card-text text-muted">Compare stats between two drivers.</p>
+                        <a href="/compare-drivers" class="btn btn-primary"><i class="fas fa-exchange-alt"></i> Compare Drivers</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card: Compare Teams -->
+            <div class="col-md-4">
+                <div class="card dashboard-card shadow-sm">
+                    <div class="card-body">
+                        <i class="fas fa-users-cog icon"></i>
+                        <h5 class="card-title mt-3">Compare Teams</h5>
+                        <p class="card-text text-muted">Compare stats between two Formula 1 teams.</p>
+                        <a href="/compare-teams" class="btn btn-primary"><i class="fas fa-exchange-alt"></i> Compare Teams</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
