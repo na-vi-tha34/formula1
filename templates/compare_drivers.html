@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Compare Drivers - Formula 1</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+    <style>
+        body {
+            background: #f8f9fa;
+            font-family: Arial, sans-serif;
+        }
+
+        .container {
+            max-width: 700px;
+            margin-top: 50px;
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-control {
+            border-radius: 8px;
+            padding: 12px;
+            font-size: 1rem;
+        }
+
+        .btn-primary {
+            background-color: #007bff;
+            border: none;
+            padding: 12px;
+            font-size: 1rem;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+        }
+
+        .icon {
+            font-size: 20px;
+            margin-right: 10px;
+            color: #007bff;
+        }
+
+        .header-title {
+            text-align: center;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .back-btn {
+            margin-bottom: 15px;
+        }
+
+        .table {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .highlight {
+            background: #28a745 !important;
+            color: white;
+            font-weight: bold;
+            border-radius: 5px;
+            padding: 5px;
+        }
+
+        .btn-secondary {
+            margin-top: 20px;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2 class="header-title"><i class="fas fa-balance-scale"></i> Compare Formula 1 Drivers</h2>
+
+        <!-- Back Button -->
+        <a href="/dashboard" class="btn btn-secondary back-btn"><i class="fas fa-arrow-left"></i> Back to Dashboard</a>
+
+        <!-- Compare Drivers Form -->
+        <form action="/compare-drivers" method="post">
+            <div class="form-group">
+                <label><i class="fas fa-user icon"></i> Select First Driver</label>
+                <select name="driver1" class="form-control" required>
+                    {% for driver in drivers %}
+                    <option value="{{ driver.id }}">{{ driver.name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label><i class="fas fa-user icon"></i> Select Second Driver</label>
+                <select name="driver2" class="form-control" required>
+                    {% for driver in drivers %}
+                    <option value="{{ driver.id }}">{{ driver.name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <button type="submit" class="btn btn-primary"><i class="fas fa-chart-bar"></i> Compare</button>
+        </form>
+
+        <!-- Results Section -->
+        {% if driver1 and driver2 %}
+        <h3 class="mt-4 text-center"><i class="fas fa-list"></i> Comparison Results</h3>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Attribute</th>
+                    <th>{{ driver1.name }}</th>
+                    <th>{{ driver2.name }}</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><i class="fas fa-birthday-cake"></i> Age (Lower is Better)</td>
+                    <td class="{% if driver1.age < driver2.age %}highlight{% endif %}">{{ driver1.age }}</td>
+                    <td class="{% if driver2.age < driver1.age %}highlight{% endif %}">{{ driver2.age }}</td>
+                </tr>
+                <tr>
+                    <td><i class="fas fa-flag-checkered"></i> Total Pole Positions</td>
+                    <td class="{% if driver1.total_pole_positions > driver2.total_pole_positions %}highlight{% endif %}">{{ driver1.total_pole_positions }}</td>
+                    <td class="{% if driver2.total_pole_positions > driver1.total_pole_positions %}highlight{% endif %}">{{ driver2.total_pole_positions }}</td>
+                </tr>
+                <tr>
+                    <td><i class="fas fa-trophy"></i> Total Race Wins</td>
+                    <td class="{% if driver1.total_race_wins > driver2.total_race_wins %}highlight{% endif %}">{{ driver1.total_race_wins }}</td>
+                    <td class="{% if driver2.total_race_wins > driver1.total_race_wins %}highlight{% endif %}">{{ driver2.total_race_wins }}</td>
+                </tr>
+                <tr>
+                    <td><i class="fas fa-coins"></i> Total Points Scored</td>
+                    <td class="{% if driver1.total_points_scored > driver2.total_points_scored %}highlight{% endif %}">{{ driver1.total_points_scored }}</td>
+                    <td class="{% if driver2.total_points_scored > driver1.total_points_scored %}highlight{% endif %}">{{ driver2.total_points_scored }}</td>
+                </tr>
+                <tr>
+                    <td><i class="fas fa-medal"></i> Total World Titles</td>
+                    <td class="{% if driver1.total_world_titles > driver2.total_world_titles %}highlight{% endif %}">{{ driver1.total_world_titles }}</td>
+                    <td class="{% if driver2.total_world_titles > driver1.total_world_titles %}highlight{% endif %}">{{ driver2.total_world_titles }}</td>
+                </tr>
+                <tr>
+                    <td><i class="fas fa-stopwatch"></i> Total Fastest Laps</td>
+                    <td class="{% if driver1.total_fastest_laps > driver2.total_fastest_laps %}highlight{% endif %}">{{ driver1.total_fastest_laps }}</td>
+                    <td class="{% if driver2.total_fastest_laps > driver1.total_fastest_laps %}highlight{% endif %}">{{ driver2.total_fastest_laps }}</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <!-- Compare New Button -->
+        <button onclick="window.location.href = '/compare-drivers';" class="btn btn-secondary"><i class="fas fa-sync-alt"></i> Compare New</button>
+        {% endif %}
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
