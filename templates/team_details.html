@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ team.name }} - Team Details</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+    <style>
+        .container {
+            max-width: 600px;
+            margin-top: 50px;
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2><i class="fas fa-users"></i> {{ team.name }}</h2>
+        <p>Year Founded: {{ team.year_founded }}</p>
+        <p>Total Pole Positions: {{ team.total_pole_positions }}</p>
+        <p>Total Race Wins: {{ team.total_race_wins }}</p>
+        <p>Total Constructor Titles: {{ team.total_constructor_titles }}</p>
+        <p>Last Season Position: {{ team.finishing_position_last_season }}</p>
+        <a href="/query-teams" class="btn btn-secondary">Back to Teams</a>
+    </div>
+
+</body>
+</html>
