@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Teams - Formula 1</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+    <style>
+        body {
+            background: #f8f9fa;
+            font-family: Arial, sans-serif;
+        }
+
+        .container {
+            max-width: 800px;
+            margin-top: 50px;
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .team-card {
+            background: #e9ecef;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            transition: 0.3s ease-in-out;
+        }
+
+        .team-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .team-name {
+            font-size: 20px;
+            font-weight: bold;
+            text-decoration: none;
+            color: #007bff;
+            margin-left: 10px;
+        }
+
+        .team-name:hover {
+            text-decoration: underline;
+            color: #0056b3;
+        }
+
+        .team-detail {
+            font-size: 16px;
+            color: #333;
+        }
+
+        .icon {
+            font-size: 25px;
+            color: #007bff;
+        }
+
+        .back-btn {
+            margin-top: 20px;
+        }
+
+        .no-teams {
+            font-size: 18px;
+            color: #dc3545;
+        }
+
+        .btn-sm {
+            padding: 6px 12px;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2><i class="fas fa-users-cog"></i> Formula 1 Teams</h2>
+
+        {% if teams %}
+            {% for team in teams %}
+            <div class="team-card">
+                <div>
+                    <i class="fas fa-flag-checkered icon"></i>
+                    <!-- ✅ Clicking the team name opens the detail page -->
+                    <a href="/team/{{ team.id }}" class="team-name">{{ team.name }}</a>
+                    <p class="team-detail"><i class="fas fa-calendar-alt"></i> Founded: {{ team.year_founded }}</p>
+                </div>
+                <div>
+                    <!-- ✅ Edit Button: Opens Edit Page -->
+                    <a href="/edit-team/{{ team.id }}" class="btn btn-warning btn-sm">
+                        <i class="fas fa-edit"></i> Edit
+                    </a>
+                    <!-- 🗑️ Delete Button -->
+                    <a href="/delete-team/{{ team.id }}" class="btn btn-danger btn-sm">
+                        <i class="fas fa-trash"></i> Delete
+                    </a>
+                </div>
+            </div>
+            {% endfor %}
+        {% else %}
+            <p class="no-teams"><i class="fas fa-exclamation-triangle"></i> No teams found.</p>
+        {% endif %}
+
+        <a href="/dashboard" class="btn btn-secondary back-btn"><i class="fas fa-arrow-left"></i> Back to Dashboard</a>
+    </div>
+
+</body>
+</html>
